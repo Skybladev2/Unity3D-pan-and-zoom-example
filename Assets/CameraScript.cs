@@ -48,7 +48,7 @@ public class CameraScript : MonoBehaviour
                 }
                 else
                 {
-                    Vector2 delta = camera.ScreenToWorldPoint(touch0.position) - 
+                    Vector2 delta = camera.ScreenToWorldPoint(touch0.position) -
                                     camera.ScreenToWorldPoint(initialTouchPosition);
 
                     Vector3 newPos = initialCameraPosition;
@@ -58,8 +58,7 @@ public class CameraScript : MonoBehaviour
                     this.transform.position = newPos;
                 }
             }
-
-            if (!IsTouching(touch0))
+            else
             {
                 drag = false;
             }
@@ -97,20 +96,20 @@ public class CameraScript : MonoBehaviour
                                                    initialTouch1Position);
 
                 Vector2 currentMidPoint = (touch0.position + touch1.position) / 2;
-                Vector3 initialPointWorldBeforeZoom = camera.ScreenToWorldPoint(initialMidPointScreen);
+                Vector3 initialMidPointWorldBeforeZoom = camera.ScreenToWorldPoint(initialMidPointScreen);
 
                 Camera.main.orthographicSize = initialOrthographicSize / scaleFactor;
 
-                Vector3 initialPointWorldAfterZoom = camera.ScreenToWorldPoint(initialMidPointScreen);
-                Vector2 initialPointDelta = initialPointWorldBeforeZoom - initialPointWorldAfterZoom;
+                Vector3 initialMidPointWorldAfterZoom = camera.ScreenToWorldPoint(initialMidPointScreen);
+                Vector2 initialMidPointDelta = initialMidPointWorldBeforeZoom - initialMidPointWorldAfterZoom;
 
-                Vector2 oldAndNewPointDelta =
+                Vector2 oldAndNewMidPointDelta =
                     camera.ScreenToWorldPoint(currentMidPoint) -
                     camera.ScreenToWorldPoint(initialMidPointScreen);
 
                 Vector3 newPos = initialCameraPosition;
-                newPos.x -= oldAndNewPointDelta.x - initialPointDelta.x;
-                newPos.y -= oldAndNewPointDelta.y - initialPointDelta.y;
+                newPos.x -= oldAndNewMidPointDelta.x - initialMidPointDelta.x;
+                newPos.y -= oldAndNewMidPointDelta.y - initialMidPointDelta.y;
 
                 this.transform.position = newPos;
             }
